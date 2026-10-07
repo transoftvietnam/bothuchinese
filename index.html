@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>214 Bộ Thủ — Học Chữ Hán Thông Minh</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fff1dc;--card:#fffaf2;--tx:#3a1d10;--mut:#9a6b4f;--pri:#d9361f;--gold:#f5a623;--bd:#f2cfa3;--ok:#2e9e5b;--warn:#f5a623}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#2a130b;--card:#3a1d12;--tx:#ffe9cf;--mut:#d9a67f;--bd:#6a3a22;--pri:#ff6a3d}}
+:root[data-theme=dark]{--bg:#2a130b;--card:#3a1d12;--tx:#ffe9cf;--mut:#d9a67f;--bd:#6a3a22;--pri:#ff6a3d}
+header{background:linear-gradient(135deg,#d9361f,#f5761a 60%,#f5a623);color:#fff;border-radius:0 0 26px 26px;box-shadow:0 6px 18px #d9361f44}
+header h1,header p{color:#fff!important}.logo{display:inline-flex;flex-direction:column;align-items:center;background:#fff;color:#d9361f;border:3px solid #f5a623;border-radius:18px;padding:6px 18px;box-shadow:0 3px 0 #a5230f}.logo b{font-size:30px;letter-spacing:4px;line-height:1.2}.logo small{font-size:11px;letter-spacing:3px;color:#9a6b4f}
+.stat b,.btn{background-image:none}.btn{background:linear-gradient(135deg,#d9361f,#f5761a);box-shadow:0 3px 0 #a5230f}nav button.on{background:linear-gradient(135deg,#d9361f,#f5761a)}.stat{border-top:4px solid var(--gold)}.cell.s0:hover{border-color:var(--pri)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,"Noto Sans SC","PingFang SC",sans-serif}
+header{text-align:center;padding:18px 12px 8px}header h1{margin:0;font-size:22px;color:var(--pri);letter-spacing:1px}header p{margin:2px 0;color:var(--mut);font-size:14px}
+.badges{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:6px;font-size:12px}.badges span{background:#ffffff26;color:#fff;border:1px solid #ffffff66;border-radius:99px;padding:3px 10px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:8px 10px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+nav button{flex:none;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:8px 14px;font-size:14px;cursor:pointer}
+nav button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+main{max-width:760px;margin:0 auto;padding:10px 14px 40px}section{display:none}section.on{display:block}
+h2{margin:8px 0 4px;font-size:19px}.sub{color:var(--mut);font-size:14px;margin:0 0 12px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}.stat{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;text-align:center}.stat b{font-size:24px;display:block;color:var(--pri)}.stat small{color:var(--mut)}
+.bar{height:10px;background:var(--bd);border-radius:9px;overflow:hidden;margin:6px 0 14px}.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .4s}
+.btn{border:0;background:var(--pri);color:#fff;border-radius:10px;padding:11px 16px;font-size:15px;cursor:pointer}.btn.alt{background:var(--card);color:var(--tx);border:1px solid var(--bd)}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.menu div{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;cursor:pointer}.menu b{display:block;margin:4px 0}.menu small{color:var(--mut)}
+.filters{display:flex;gap:8px;margin-bottom:10px}select,input[type=search]{flex:1;padding:9px;border-radius:9px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px}
+.cell{background:var(--card);border:2px solid var(--bd);border-radius:12px;text-align:center;padding:8px 2px;cursor:pointer;position:relative}.cell .c{font-size:30px;line-height:1.2}.cell small{display:block;font-size:11px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 2px}.cell em{position:absolute;top:2px;left:5px;font-size:10px;color:var(--mut);font-style:normal}
+.cell.s1{border-color:var(--warn)}.cell.s2{border-color:var(--ok)}
+.fc{perspective:900px;height:260px;margin:10px 0;cursor:pointer}.fc>div{position:relative;height:100%;transition:transform .5s;transform-style:preserve-3d}.fc.flip>div{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;background:var(--card);border:1px solid var(--bd);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:10px}.back{transform:rotateY(180deg)}
+.big{font-size:96px;line-height:1}.row{display:flex;gap:8px;justify-content:center;margin:8px 0}.row .btn{flex:1}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mg button{padding:14px 6px;border-radius:10px;border:2px solid var(--bd);background:var(--card);color:var(--tx);font-size:16px;cursor:pointer;min-height:54px}.mg button.sel{border-color:var(--pri)}.mg button.done{visibility:hidden}.mg button.bad{border-color:#e74c3c}
+.modal{position:fixed;inset:0;background:#0007;display:none;align-items:flex-end;justify-content:center;z-index:20}.modal.on{display:flex}
+.sheet{background:var(--bg);width:100%;max-width:560px;max-height:92%;overflow:auto;border-radius:18px 18px 0 0;padding:16px;position:relative}
+.x{position:absolute;right:12px;top:10px;border:0;background:none;font-size:22px;color:var(--tx);cursor:pointer}
+.dc{font-size:84px;text-align:center;line-height:1.1}.kv{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 12px;margin:6px 0}.kv small{color:var(--mut);display:block}
+canvas{width:100%;max-width:300px;aspect-ratio:1;display:block;margin:8px auto;border:1px solid var(--bd);border-radius:10px;background:var(--card);touch-action:none;
+background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:50% 50%}
+.days{display:flex;gap:4px;align-items:flex-end;height:90px}.days i{flex:1;background:var(--pri);border-radius:4px 4px 0 0;min-height:3px}
+</style></head><body>
+<header style="padding:16px 12px 20px"><div class="logo"><b>乐学中文中心</b><small>LE XUE CHINESE</small></div><h1 style="margin-top:10px">214 BỘ THỦ</h1><p>Học bộ thủ - Thuộc chữ Hán</p>
+<div class="badges"><span>214 bộ Khang Hy</span><span>Hán Việt · Pinyin</span><span>Có nghĩa tiếng Việt</span></div></header>
+<nav id="nav"></nav>
+<main>
+<section id="home" class="on"><div class="stats" id="stats"></div>
+<p style="margin:14px 0 0"><b>Tiến độ tổng thể</b> <span id="pt" style="float:right"></span></p><div class="bar"><i id="pb"></i></div>
+<button class="btn" onclick="go('flash')">▶ Tiếp tục học</button>
+<div class="menu"><div onclick="go('flash')">🗂️<b>Flashcard</b><small>Ôn nhanh từng bộ</small></div><div onclick="go('list')">📋<b>Danh sách</b><small>Tra cứu 214 bộ</small></div><div onclick="go('match')">🔗<b>Ghép đôi</b><small>Bộ thủ ↔ nghĩa</small></div><div onclick="go('ach')">🏆<b>Thành tích</b><small>Xem tiến trình</small></div></div></section>
+<section id="list"><h2>Danh sách 214 bộ thủ</h2><p class="sub">Chạm vào một bộ thủ để xem chi tiết.</p>
+<div class="filters"><select id="fs" onchange="renderList()"><option value="">Tất cả số nét</option></select><select id="ft" onchange="renderList()"><option value="">Tất cả trạng thái</option><option value="0">⚪ Chưa học</option><option value="1">🟡 Đã học</option><option value="2">🟢 Đã thuộc</option></select></div>
+<input type="search" id="q" placeholder="Tìm chữ, Hán Việt, pinyin, nghĩa…" oninput="renderList()" style="width:100%;margin-bottom:10px"><div class="grid" id="grid"></div></section>
+<section id="flash"><h2>Flashcard</h2><p class="sub">Chạm vào thẻ để lật, sau đó chọn mức độ nhớ. Đã ôn: <b id="rv">0</b></p>
+<div class="fc" id="fc" onclick="this.classList.toggle('flip')"><div><div class="face"><div class="big" id="f1"></div><small style="color:var(--mut)">Chạm để lật thẻ</small></div><div class="face back" id="f2"></div></div></div>
+<div class="row"><button class="btn alt" onclick="rate(0)">😵 Chưa nhớ</button><button class="btn alt" onclick="rate(1)">🙂 Bình thường</button><button class="btn alt" onclick="rate(2)">😎 Đã nhớ</button></div>
+<button class="btn alt" style="width:100%" onclick="shuffle()">🔀 Xáo lại bộ thẻ</button></section>
+<section id="match"><h2>Ghép đôi</h2><p class="sub">Chọn kiểu ghép rồi nối các cặp tương ứng.</p>
+<div class="filters"><select id="mt" onchange="newMatch()"><option value="m">Bộ thủ ↔ Nghĩa</option><option value="p">Bộ thủ ↔ Pinyin</option><option value="h">Bộ thủ ↔ Hán Việt</option></select><button class="btn" onclick="newMatch()">🔄 Ván mới</button></div>
+<p id="mm" class="sub"></p><div class="mg" id="mg"></div></section>
+<section id="ach"><h2>Thành tích</h2><div class="stats" id="as"></div><p><b>Tiến trình 14 ngày gần nhất</b></p><div class="days" id="days"></div><p><button class="btn alt" onclick="if(confirm('Xoá toàn bộ tiến trình?')){S={st:{},log:{}};save();all()}">Đặt lại tiến trình</button></p></section>
+</main>
+<div class="modal" id="md" onclick="if(event.target==this)closeM()"><div class="sheet"><button class="x" onclick="closeM()">✕</button><div id="dt"></div></div></div>
+<script>
+const RAW=`一 Nhất yī một
+丨 Cổn gǔn nét sổ
+丶 Chủ zhǔ chấm
+丿 Piệt piě nét phẩy
+乙 Ất yǐ thứ hai
+亅 Quyết jué móc
+二 Nhị èr hai
+亠 Đầu tóu nắp
+人 Nhân rén người
+儿 Nhân ér chân người
+入 Nhập rù vào
+八 Bát bā tám
+冂 Quynh jiōng vùng biên giới
+冖 Mịch mì trùm khăn
+冫 Băng bīng băng giá
+几 Kỷ jī ghế dựa
+凵 Khảm kǎn há miệng
+刀 Đao dāo dao
+力 Lực lì sức mạnh
+勹 Bao bāo bao bọc
+匕 Chủy bǐ cái thìa
+匚 Phương fāng cái hộp
+匸 Hệ xǐ che giấu
+十 Thập shí mười
+卜 Bốc bǔ bói toán
+卩 Tiết jié đốt tre
+厂 Hán hàn sườn núi
+厶 Khư sī riêng tư
+又 Hựu yòu lại nữa
+口 Khẩu kǒu miệng
+囗 Vi wéi vây quanh
+土 Thổ tǔ đất
+士 Sĩ shì kẻ sĩ
+夂 Trĩ zhǐ đi chậm
+夊 Tuy suī đi chậm
+夕 Tịch xī buổi tối
+大 Đại dà to lớn
+女 Nữ nǚ phụ nữ
+子 Tử zǐ con
+宀 Miên mián mái nhà
+寸 Thốn cùn tấc
+小 Tiểu xiǎo nhỏ
+尢 Uông wāng yếu đuối
+尸 Thi shī xác chết
+屮 Triệt chè mầm cây
+山 Sơn shān núi
+巛 Xuyên chuān sông
+工 Công gōng thợ, công việc
+己 Kỷ jǐ bản thân
+巾 Cân jīn khăn
+干 Can gān khô, can dự
+幺 Yêu yāo nhỏ nhắn
+广 Nghiễm guǎng mái rộng
+廴 Dẫn yǐn bước dài
+廾 Củng gǒng chắp tay
+弋 Dặc yì bắn, chiếm lấy
+弓 Cung gōng cây cung
+彐 Kệ jì đầu con heo
+彡 Sam shān lông, tóc
+彳 Xích chì bước chân trái
+心 Tâm xīn tim, tâm
+戈 Qua gē cây giáo
+戶 Hộ hù cửa một cánh
+手 Thủ shǒu tay
+支 Chi zhī cành, chi
+攴 Phốc pǔ đánh khẽ
+文 Văn wén văn chương
+斗 Đẩu dǒu cái đấu
+斤 Cân jīn cái rìu
+方 Phương fāng vuông, phương
+无 Vô wú không
+日 Nhật rì mặt trời, ngày
+曰 Viết yuē nói rằng
+月 Nguyệt yuè mặt trăng, tháng
+木 Mộc mù cây
+欠 Khiếm qiàn thiếu, ngáp
+止 Chỉ zhǐ dừng lại
+歹 Đãi dǎi xấu, chết
+殳 Thù shū binh khí
+毋 Vô wú đừng, chớ
+比 Tỷ bǐ so sánh
+毛 Mao máo lông
+氏 Thị shì họ
+气 Khí qì hơi nước
+水 Thủy shuǐ nước
+火 Hỏa huǒ lửa
+爪 Trảo zhǎo móng vuốt
+父 Phụ fù cha
+爻 Hào yáo hào (quẻ)
+爿 Tường qiáng mảnh gỗ
+片 Phiến piàn tấm, mảnh
+牙 Nha yá răng
+牛 Ngưu niú con trâu, bò
+犬 Khuyển quǎn con chó
+玄 Huyền xuán huyền bí
+玉 Ngọc yù ngọc
+瓜 Qua guā quả dưa
+瓦 Ngõa wǎ ngói
+甘 Cam gān ngọt
+生 Sinh shēng sống, sinh
+用 Dụng yòng dùng
+田 Điền tián ruộng
+疋 Thất pǐ cuộn vải
+疒 Nạch nè bệnh tật
+癶 Bát bō gạt ra
+白 Bạch bái màu trắng
+皮 Bì pí da
+皿 Mãnh mǐn đồ bát đĩa
+目 Mục mù mắt
+矛 Mâu máo cây mâu
+矢 Thỉ shǐ mũi tên
+石 Thạch shí đá
+示 Thị shì thần đất, chỉ thị
+禸 Nhữu róu vết chân thú
+禾 Hòa hé cây lúa
+穴 Huyệt xué cái hang
+立 Lập lì đứng
+竹 Trúc zhú tre
+米 Mễ mǐ gạo
+糸 Mịch mì sợi tơ
+缶 Phẫu fǒu đồ sành
+网 Võng wǎng cái lưới
+羊 Dương yáng con dê
+羽 Vũ yǔ lông vũ
+老 Lão lǎo già
+而 Nhi ér mà, và
+耒 Lỗi lěi cái cày
+耳 Nhĩ ěr tai
+聿 Duật yù cây bút
+肉 Nhục ròu thịt
+臣 Thần chén bề tôi
+自 Tự zì tự, từ
+至 Chí zhì đến
+臼 Cữu jiù cái cối
+舌 Thiệt shé cái lưỡi
+舛 Suyễn chuǎn trái ngược
+舟 Chu zhōu thuyền
+艮 Cấn gèn quẻ cấn, bền
+色 Sắc sè màu sắc
+艸 Thảo cǎo cỏ
+虍 Hô hū vằn hổ
+虫 Trùng chóng sâu bọ
+血 Huyết xuè máu
+行 Hành xíng đi, hành
+衣 Y yī áo
+襾 Á yà che đậy
+見 Kiến jiàn thấy
+角 Giác jiǎo sừng
+言 Ngôn yán nói
+谷 Cốc gǔ thung lũng
+豆 Đậu dòu hạt đậu
+豕 Thỉ shǐ con lợn
+豸 Trãi zhì loài sâu không chân
+貝 Bối bèi vỏ sò, tiền
+赤 Xích chì màu đỏ
+走 Tẩu zǒu chạy
+足 Túc zú chân
+身 Thân shēn thân mình
+車 Xa chē xe
+辛 Tân xīn cay
+辰 Thần chén thìn, sao
+辵 Sước chuò chợt đi chợt dừng
+邑 Ấp yì làng, thành
+酉 Dậu yǒu rượu, giờ Dậu
+釆 Biện biàn phân biệt
+里 Lý lǐ dặm, làng
+金 Kim jīn vàng, kim loại
+長 Trường cháng dài
+門 Môn mén cổng
+阜 Phụ fù gò đất
+隶 Đãi dài kịp tới
+隹 Chuy zhuī chim đuôi ngắn
+雨 Vũ yǔ mưa
+青 Thanh qīng màu xanh
+非 Phi fēi không phải
+面 Diện miàn mặt
+革 Cách gé da thuộc
+韋 Vi wéi da mềm
+韭 Phỉ jiǔ rau hẹ
+音 Âm yīn âm thanh
+頁 Hiệt yè đầu, trang
+風 Phong fēng gió
+飛 Phi fēi bay
+食 Thực shí ăn
+首 Thủ shǒu đầu
+香 Hương xiāng mùi thơm
+馬 Mã mǎ con ngựa
+骨 Cốt gǔ xương
+高 Cao gāo cao
+髟 Tiêu biāo tóc dài
+鬥 Đấu dòu đánh nhau
+鬯 Sưởng chàng rượu nếp
+鬲 Cách gé cái vạc
+鬼 Quỷ guǐ con ma
+魚 Ngư yú con cá
+鳥 Điểu niǎo con chim
+鹵 Lỗ lǔ đất mặn
+鹿 Lộc lù con hươu
+麥 Mạch mài lúa mạch
+麻 Ma má cây gai
+黃 Hoàng huáng màu vàng
+黍 Thử shǔ lúa nếp
+黑 Hắc hēi màu đen
+黹 Chỉ zhǐ may thêu
+黽 Mãnh mǐn con ếch
+鼎 Đỉnh dǐng cái đỉnh
+鼓 Cổ gǔ cái trống
+鼠 Thử shǔ con chuột
+鼻 Tỵ bí mũi
+齊 Tề qí đều, chỉnh tề
+齒 Xỉ chǐ răng
+龍 Long lóng con rồng
+龜 Quy guī con rùa
+龠 Dược yuè sáo`;
+const GRP=[6,23,31,34,23,29,20,9,11,8,6,4,4,2,1,2,1];
+let D=[],k=0;GRP.forEach((n,i)=>{for(let j=0;j<n;j++)D.push(i+1)});
+D=RAW.split('\n').map((l,i)=>{const p=l.split(' ');return{n:i+1,c:p[0],h:p[1],p:p[2],m:p.slice(3).join(' '),s:D[i]}});
+let S={st:{},log:{}};try{S=JSON.parse(localStorage.getItem('bt214'))||S}catch(e){}
+const save=()=>{try{localStorage.setItem('bt214',JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id),st=n=>S.st[n]||0,today=()=>new Date().toISOString().slice(0,10);
+const TABS=[['home','🏠 Trang chủ'],['list','📋 Danh sách'],['flash','🗂️ Flashcard'],['match','🔗 Ghép đôi'],['ach','🏆 Thành tích']];
+$('nav').innerHTML=TABS.map(t=>`<button data-t="${t[0]}" onclick="go('${t[0]}')">${t[1]}</button>`).join('');
+function go(t){document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id==t));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));if(t=='match'&&!$('mg').children.length)newMatch();all();scrollTo(0,0)}
+function setSt(n,v){S.st[n]=v;S.log[today()]=(S.log[today()]||0)+1;save();all()}
+function counts(){let a=0,b=0;D.forEach(d=>{const s=st(d.n);if(s>=1)a++;if(s==2)b++});return[a,b]}
+function streak(){let n=0,d=new Date();while(S.log[d.toISOString().slice(0,10)]){n++;d.setDate(d.getDate()-1)}return n}
+function all(){const[a,b]=counts(),pc=Math.round(b/214*100);
+const need=D.filter(d=>st(d.n)==1).length;
+$('stats').innerHTML=[[214,'Tổng số bộ'],[a,'Đã học'],[b,'Đã thuộc'],[need,'Cần ôn'],[pc+'%','Tiến độ']].map(x=>`<div class="stat"><b>${x[0]}</b><small>${x[1]}</small></div>`).join('');
+$('pt').textContent=b+' / 214';$('pb').style.width=pc+'%';
+$('as').innerHTML=[['🟢',b,'Đã thuộc'],['🔥',streak(),'Chuỗi ngày học'],['📈',pc+'%','Tiến độ']].map(x=>`<div class="stat">${x[0]}<b>${x[1]}</b><small>${x[2]}</small></div>`).join('');
+let h='',mx=1,ds=[];for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const v=S.log[d.toISOString().slice(0,10)]||0;ds.push(v);mx=Math.max(mx,v)}
+$('days').innerHTML=ds.map(v=>`<i title="${v}" style="height:${Math.max(4,v/mx*100)}%"></i>`).join('');renderList()}
+$('fs').innerHTML+=GRP.map((_,i)=>`<option value="${i+1}">${i+1} nét</option>`).join('');
+function renderList(){const f=$('fs').value,t=$('ft').value,q=$('q').value.trim().toLowerCase();
+$('grid').innerHTML=D.filter(d=>(!f||d.s==f)&&(t===''||st(d.n)==t)&&(!q||(d.c+d.h+d.p+d.m).toLowerCase().includes(q))).map(d=>`<div class="cell s${st(d.n)}" onclick="openM(${d.n})"><em>${d.n}</em><div class="c">${d.c}</div><small>${d.h}</small><small>${d.p}</small></div>`).join('')}
+let cur=1;
+function openM(n){cur=n;const d=D[n-1];$('dt').innerHTML=`<div class="dc">${d.c}</div><p style="text-align:center;color:var(--mut)">STT ${d.n} · ${d.s} nét</p>
+<div class="kv"><small>Âm Hán Việt</small><b>${d.h}</b></div><div class="kv"><small>Pinyin</small><b>${d.p}</b></div><div class="kv"><small>Nghĩa tiếng Việt</small><b>${d.m}</b></div>
+<div class="row"><button class="btn alt" onclick="setSt(${n},1);openM(${n})">🟡 Đã học${st(n)==1?' ✓':''}</button><button class="btn alt" onclick="setSt(${n},2);openM(${n})">🟢 Đã thuộc${st(n)==2?' ✓':''}</button></div>
+<p><b>✍️ Luyện viết</b> <small style="color:var(--mut)">(viết đè lên chữ mờ)</small></p><canvas id="cv" width="600" height="600"></canvas>
+<div class="row"><button class="btn alt" onclick="clr()">🧹 Xoá</button><button class="btn alt" onclick="tg()">👁️ Ẩn/hiện gợi ý</button></div>
+<div class="row"><button class="btn alt" onclick="openM(${Math.max(1,n-1)})">← Bộ trước</button><button class="btn alt" onclick="openM(${Math.min(214,n+1)})">Bộ sau →</button></div>`;
+$('md').classList.add('on');initCv()}
+function closeM(){$('md').classList.remove('on')}
+let hint=true,ctx;function initCv(){const c=$('cv');ctx=c.getContext('2d');hint=true;clr();let dr=false;
+const pos=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*600/r.width,(e.clientY-r.top)*600/r.height]};
+c.onpointerdown=e=>{dr=true;const[x,y]=pos(e);ctx.beginPath();ctx.moveTo(x,y);c.setPointerCapture(e.pointerId)};
+c.onpointermove=e=>{if(!dr)return;const[x,y]=pos(e);ctx.lineTo(x,y);ctx.strokeStyle=getComputedStyle(document.body).color;ctx.lineWidth=12;ctx.lineCap=ctx.lineJoin='round';ctx.stroke()};
+c.onpointerup=()=>dr=false}
+function clr(){ctx.clearRect(0,0,600,600);if(hint){ctx.font='460px "Noto Sans SC","PingFang SC",serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='rgba(150,130,110,.28)';ctx.fillText(D[cur-1].c,300,320)}}
+function tg(){hint=!hint;clr()}
+let deck=[],di=0,rv=0;
+function shuffle(){deck=D.map(d=>d.n).sort(()=>Math.random()-.5);di=0;show()}
+function show(){const d=D[deck[di]-1];$('fc').classList.remove('flip');$('f1').textContent=d.c;
+$('f2').innerHTML=`<div style="font-size:42px">${d.c}</div><b style="font-size:22px">${d.h}</b><span>${d.p}</span><span>${d.m}</span><small style="color:var(--mut)">STT ${d.n} · ${d.s} nét</small>`;$('rv').textContent=rv}
+function rate(v){const n=deck[di];S.st[n]=v==0?Math.min(st(n),1)||0:v==1?1:2;S.log[today()]=(S.log[today()]||0)+1;save();rv++;di=(di+1)%deck.length;show();all()}
+let mp=[],sel=null,left=0;
+function newMatch(){const t=$('mt').value,pick=[...D].sort(()=>Math.random()-.5).slice(0,6);left=6;sel=null;
+const f=d=>t=='m'?d.m:t=='p'?d.p:d.h;
+const L=pick.map(d=>({id:d.n,t:d.c,k:'a'})),R=pick.map(d=>({id:d.n,t:f(d),k:'b'}));
+mp=[...L,...R].sort(()=>Math.random()-.5);$('mm').textContent='Còn '+left+' cặp';
+$('mg').innerHTML=mp.map((x,i)=>`<button style="${x.k=='a'?'font-size:28px':''}" onclick="pk(${i},this)">${x.t}</button>`).join('')}
+function pk(i,b){const x=mp[i];if(sel===null){sel=i;b.classList.add('sel');return}
+const a=mp[sel],ab=$('mg').children[sel];ab.classList.remove('sel');
+if(sel!=i&&a.id==x.id&&a.k!=x.k){ab.classList.add('done');b.classList.add('done');left--;$('mm').textContent=left?'Còn '+left+' cặp':'🎉 Hoàn thành! Bấm "Ván mới" để chơi tiếp.'}
+else{[ab,b].forEach(e=>{e.classList.add('bad');setTimeout(()=>e.classList.remove('bad'),400)})}sel=null}
+shuffle();go('home');
+</script></body></html>
